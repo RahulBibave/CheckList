@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+    >
+        <ImageView
+
+                android:id="@+id/img_arrowback"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/back_new"
+                android:layout_centerVertical="true"
+                android:visibility="visible"
+        />
+
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+
+            <TextView
+                    android:id="@+id/txt_SignUpHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Details"
+                    android:layout_marginLeft="-40dp"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    android:textAllCaps="true"
+            />
+
+        </RelativeLayout>
+
+
+
+    </androidx.appcompat.widget.Toolbar>
+    <FrameLayout android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+    <TextView
+            android:visibility="gone"
+            android:id="@+id/txtDataNotFound"
+            android:layout_below="@id/toolbar"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:text="No Data Found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@id/toolbar"
+            android:id="@+id/recyclerStatus"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    </FrameLayout>
+</LinearLayout>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:background="#E9E6E6"
+
+        android:layout_height="match_parent">
+    <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+    >
+
+
+        <RelativeLayout
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <TextView
+                    android:id="@+id/txt_SignUpHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Check List"
+                    android:textColor="#FFFFFF"
+                    android:layout_centerVertical="true"
+                    android:gravity="center"
+                    android:textSize="18dp"
+                    android:textAllCaps="true"
+            />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <LinearLayout
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Checklist"/>
+            <TextView
+                    android:background="@drawable/edittext_boarder"
+                    android:id="@+id/spinnerChecklist"
+
+
+                    app:ms_background_color="#5d5d5d"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:hint="Checklist"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:drawableRight="@drawable/ic_arrow_red"
+                    android:elevation="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+            <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Project Name"/>
+            <TextView
+
+                    android:background="@drawable/edittext_boarder"
+                    android:id="@+id/spinnerProjectName"
+
+
+                    app:ms_background_color="#5d5d5d"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:hint="Project Name"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:drawableRight="@drawable/ic_arrow_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+
+            <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Building Name"/>
+            <TextView
+                    android:background="@drawable/edittext_boarder"
+                    android:id="@+id/spinnerBuildingNo"
+
+                    app:ms_background_color="#5d5d5d"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:hint="Building Name"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:drawableRight="@drawable/ic_arrow_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+
+            <TextView
+                    android:layout_marginTop="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:text="Flat No"/>
+            <TextView
+                    android:background="@drawable/edittext_boarder"
+                    android:id="@+id/spinnerFlatNo"
+
+                    app:ms_background_color="#5d5d5d"
+                    android:textColor="#000000"
+                    android:textSize="20dp"
+                    android:hint="Flat Number"
+                    android:gravity="center"
+                    android:paddingRight="10dp"
+                    android:drawableRight="@drawable/ic_arrow_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"/>
+
+
+
+            />
+
+            <Button
+                    android:layout_gravity="center"
+                    android:id="@+id/btnNext"
+                    android:text="Next"
+                    android:textColor="@color/white"
+                    android:background="@color/colorAccent"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_width="150dp"
+                    android:layout_height="50dp"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
