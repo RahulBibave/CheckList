@@ -52,7 +52,7 @@ class Activity_Login : AppCompatActivity() {
         var stringRequest=object :StringRequest(Request.Method.POST,url,
             Response.Listener { response ->
 
-               // Log.e("qwwwwwwwwww",""+response)
+                Log.e("qwwwwwwwwww",""+response)
 
                 var strResp = response.toString()
                 val jsonObj: JSONObject = JSONObject(strResp)
@@ -65,19 +65,34 @@ class Activity_Login : AppCompatActivity() {
 
                         var id = jsonInner.getString("id")
                         var name = jsonInner.getString("name")
-                        var mobile_no = jsonInner.getString("mobile_no")
-                        var email = jsonInner.getString("email")
+                        //var mobile_no = jsonInner.getString("mobile_no")
+                      //  var email = jsonInner.getString("email")
                         var role = jsonInner.getString("role")
-                        var city = jsonInner.getString("city")
+                      //  var city = jsonInner.getString("city")
+                       var project_id=jsonInner.getString("project_id")
+                       var building_id=jsonInner.getString("building_id")
 
 
 
-                    if (role.equals("Admin")){
+
+                    if (role.equals("Admin") || role.equals("PM") ){
                         var intent=Intent(this,Activity_AdminMain::class.java)
                         intent.putExtra("userID",id)
+                        intent.putExtra("Role",role)
+                        intent.putExtra("proID",project_id)
+                        intent.putExtra("buildID",building_id)
                         startActivity(intent)
                         finish()
-                    }else{
+                    }else if( role.equals("QA/QC Engr") || role.equals("Sr Engr")){
+                        var intent=Intent(this,Activity_AdminMain::class.java)
+                        intent.putExtra("userID",id)
+                        intent.putExtra("Role",role)
+                        intent.putExtra("proID",project_id)
+                        intent.putExtra("buildID",building_id)
+                        startActivity(intent)
+                        finish()
+                    }
+                    else{
                         var intent=Intent(this,MainActivity::class.java)
                         intent.putExtra("userID",id)
                         startActivity(intent)
@@ -99,8 +114,9 @@ class Activity_Login : AppCompatActivity() {
             },
             Response.ErrorListener {
                     error ->
+
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("Kumar Properties")
+                builder.setTitle("Megapolis")
                 builder.setMessage("login failed enter valid Mobile number and Password")
                 builder.setPositiveButton("OK"){dialog, which ->
                     dialog.dismiss()

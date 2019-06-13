@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 <LinearLayout
+        android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
@@ -58,7 +59,7 @@
 
             app:ms_background_color="#5d5d5d"
             android:textColor="#000000"
-            android:textSize="20dp"
+            android:textSize="18dp"
             android:hint="Checklist"
             android:gravity="center"
             android:paddingRight="10dp"

@@ -7,6 +7,10 @@
               android:background="#E9E6E6"
              >
 
+    <ImageView
+            android:src="@drawable/mega"
+            android:layout_width="200dp"
+               android:layout_height="200dp"/>
 
     <LinearLayout
             android:layout_gravity="center"
@@ -49,7 +53,6 @@
                     android:layout_height="50dp"
                     android:background="@drawable/edittext_boarder"
                     android:layout_marginBottom="10dp"
-                    android:paddingLeft="20dp"
                     android:inputType="phone"
                     android:singleLine="true"
                     android:hint="Mobile No"
@@ -71,7 +74,7 @@
                     android:background="@drawable/edittext_boarder"
                     android:layout_marginTop="20dp"
 
-                    android:paddingLeft="20dp"
+
                     android:singleLine="true"
                     android:hint="Password"
                     android:text=""

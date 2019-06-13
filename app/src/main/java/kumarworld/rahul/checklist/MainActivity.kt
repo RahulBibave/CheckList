@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
     val mProjectName:ArrayList<String> = ArrayList()
     val mProjectId:ArrayList<String> = ArrayList()
 
-
     val mBuildingName:ArrayList<String> = ArrayList()
     val mBuildingID:ArrayList<String> = ArrayList()
 

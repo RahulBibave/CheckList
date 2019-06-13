@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.DefaultRetryPolicy
@@ -38,10 +39,30 @@ class Activity_AdminMain :AppCompatActivity() {
     var buildID=""
     var userID=""
     var FlatName=""
+    var BuildIDs=""
+   // var project_id=""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_check)
         userID=intent.getStringExtra("userID")
+        proID=intent.getStringExtra("proID")
+        BuildIDs=intent.getStringExtra("buildID")
+        Log.e("aaaaaaaaaaaaaaa",""+BuildIDs)
+        /*val parts = BuildIDs.split(",")
+        for (i in 0 until parts.lastIndex+1){
+            Log.e("ddddddddddddddd",""+parts[i])
+        }
+*/
+
+
+        if (intent.getStringExtra("Role").equals("PM")){
+           getBuilding(proID)
+           // pro_tital.visibility=View.GONE
+            //spinnerProjectName.visibility=View.GONE
+
+        }
+
         getAllProject()
         getCheckList()
 
@@ -62,7 +83,7 @@ class Activity_AdminMain :AppCompatActivity() {
                     chkID=mChkID[which] as String
                     //Toast.makeText(applicationContext, "CHK ID"+chkID, Toast.LENGTH_LONG).show()
                     // getProject(cityIDss,locationID)
-                }catch (e:IllegalArgumentException){
+                }catch (e : IllegalArgumentException){
 
                 }
             })
@@ -193,8 +214,15 @@ class Activity_AdminMain :AppCompatActivity() {
                         var jsonInner: JSONObject = jsonArray.getJSONObject(i)
                         var id = jsonInner.getString("id")
                         var project_name = jsonInner.getString("project_name")
-                        mProjectId.add(id)
-                        mProjectName.add(project_name)
+                        val parts = proID.split(",")
+                        for (j in 0 until parts.lastIndex+1){
+                            if (id==parts[j]){
+                                mProjectId.add(id)
+                                mProjectName.add(project_name)
+                            }
+
+                        }
+
                     }
 
                 }
@@ -242,8 +270,15 @@ class Activity_AdminMain :AppCompatActivity() {
                         var jsonInner: JSONObject = jsonArray.getJSONObject(i)
                         var id = jsonInner.getString("id")
                         var building_name = jsonInner.getString("building_name")
-                        mBuildingName.add(building_name)
-                        mBuildingID.add(id)
+                        val parts = BuildIDs.split(",")
+                        for (j in 0 until parts.lastIndex+1){
+                            if (id==parts[j]){
+                                mBuildingName.add(building_name)
+                                mBuildingID.add(id)
+                            }
+
+                        }
+
 
                     }
 
