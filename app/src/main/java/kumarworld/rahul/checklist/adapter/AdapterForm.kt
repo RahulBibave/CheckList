@@ -48,16 +48,16 @@ class AdapterForm(private val mContext: Context, private val mArrayListForm: Arr
                 holder.txtHead!!.visibility=View.GONE
             }
         }
-        if (mArrayListForm.get(position).getmCheckingStatus().equals("NO")){
+        if (mArrayListForm.get(position).getmCheckingStatus().equals("Not Done")){
             holder.chNo!!.isChecked = true
         }
-        if (mArrayListForm.get(position).getmCheckingStatus().equals("YES")){
+        if (mArrayListForm.get(position).getmCheckingStatus().equals("Done")){
             holder.chYes!!.isChecked = true
         }
         holder.chYes!!.setOnClickListener {
             if (holder!!.chYes!!.isChecked) {
                 holder.chNo!!.isChecked = false
-                submitStatus("",mArrayListForm.get(position).getmQueId(),"YES",mContext)
+                submitStatus("",mArrayListForm.get(position).getmQueId(),"Done",mContext)
 
 
             }
@@ -81,7 +81,7 @@ class AdapterForm(private val mContext: Context, private val mArrayListForm: Arr
 
               mDialogView.dialogLoginBtn.setOnClickListener {
                   //dismiss dialog
-                  submitStatus(mDialogView.dialogNameEt.text.toString(),mArrayListForm.get(position).getmQueId(),"NO",mContext)
+                  submitStatus(mDialogView.dialogNameEt.text.toString(),mArrayListForm.get(position).getmQueId(),"Not Done",mContext)
                   mAlertDialog.dismiss()
                   //get text from EditTexts of custom layout
                   val name = mDialogView.dialogNameEt.text.toString()

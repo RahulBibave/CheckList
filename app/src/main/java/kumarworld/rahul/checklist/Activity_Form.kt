@@ -36,7 +36,7 @@ class Activity_Form : AppCompatActivity() ,OpenCamera{
         var userID = ""
         var faltNo = ""
         var refer = ""
-       var addressss=""
+        var addressss=""
         var bit : Bitmap ?=null
 
     }

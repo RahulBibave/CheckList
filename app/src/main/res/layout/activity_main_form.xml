@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
+
         xmlns:android="http://schemas.android.com/apk/res/android"
          xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -31,14 +32,28 @@
                     android:textSize="18dp"
                     android:textAllCaps="true"
             />
+
+            <ImageView
+                    android:id="@+id/imgLogOut"
+                    android:layout_alignParentRight="true"
+                    android:src="@drawable/ic_settings_power_black_24dp"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"/>
         </RelativeLayout>
 
     </androidx.appcompat.widget.Toolbar>
-    <ScrollView
+    <LinearLayout
+            android:layout_below="@+id/toolbar"
+
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-<LinearLayout
-        android:layout_marginTop="10dp"
+                  android:layout_height="wrap_content">
+    <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+      <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:layout_marginLeft="20dp"
@@ -208,5 +223,5 @@
 
 </LinearLayout>
     </ScrollView>
-
-</LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

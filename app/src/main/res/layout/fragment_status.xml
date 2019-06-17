@@ -45,24 +45,61 @@
 
 
     </androidx.appcompat.widget.Toolbar>
-    <FrameLayout android:layout_width="match_parent"
-                 android:layout_height="match_parent">
-    <TextView
-            android:visibility="gone"
-            android:id="@+id/txtDataNotFound"
-            android:layout_below="@id/toolbar"
-            android:gravity="center"
-            android:textSize="20dp"
-            android:layout_gravity="center"
-            android:text="No Data Found"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    <androidx.recyclerview.widget.RecyclerView
-            android:layout_below="@id/toolbar"
-            android:id="@+id/recyclerStatus"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+    <RelativeLayout
+            android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
-    </androidx.recyclerview.widget.RecyclerView>
-    </FrameLayout>
+        <FrameLayout
+                android:layout_above="@+id/btnAddReview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            <TextView
+                    android:visibility="gone"
+                    android:id="@+id/txtDataNotFound"
+                    android:layout_below="@id/toolbar"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:text="No Data Found"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+            <androidx.recyclerview.widget.RecyclerView
+                    android:layout_below="@id/toolbar"
+                    android:id="@+id/recyclerStatus"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </FrameLayout>
+
+        <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/btnAddReview"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <CheckBox
+                    android:id="@+id/checkDone"
+                    android:text="Done"
+                    android:layout_weight="1"
+                    android:layout_width="20sp"
+                    android:layout_height="wrap_content"
+            />
+
+            <CheckBox
+                    android:id="@+id/checkNotDone"
+                    android:text="Not Done"
+                    android:layout_weight="1"
+                    android:layout_width="20sp"
+                    android:layout_height="wrap_content"
+            />
+
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

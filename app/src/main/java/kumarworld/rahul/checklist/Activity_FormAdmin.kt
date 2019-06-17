@@ -1,8 +1,11 @@
 package kumarworld.rahul.checklist
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Base64

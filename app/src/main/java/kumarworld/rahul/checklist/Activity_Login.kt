@@ -2,8 +2,12 @@ package kumarworld.rahul.checklist
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.os.PersistableBundle
@@ -23,11 +27,19 @@ import org.json.JSONObject
 import java.util.*
 private const val PERMISSION_REQUEST = 10
 class Activity_Login : AppCompatActivity() {
-    private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
 
+
+    private var USERID="USERID"
+    private var ROLE = "ROLE"
+    private var PROID = "PROID"
+    private var BUILDID = "BUILDID"
+    private var permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+    private var myPreferences = "myPrefs"
+    var sharedPreferences : SharedPreferences?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+         sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
                 // enableView()
@@ -36,7 +48,22 @@ class Activity_Login : AppCompatActivity() {
                 requestPermissions(permissions, PERMISSION_REQUEST)
             }
         }
-        btnLogin.setOnClickListener { Login()}
+        btnLogin.setOnClickListener {
+            if (isNetworkAvailable()){
+                Login()
+            }
+            else{
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Megapolis")
+                builder.setMessage("Please Check Internet Coonection")
+                builder.setPositiveButton("OK"){dialog, which ->
+                    dialog.dismiss()
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            }
+
+        }
     }
     private fun checkPermission(permissionArray: Array<String>): Boolean {
         var allSuccess = true
@@ -81,6 +108,12 @@ class Activity_Login : AppCompatActivity() {
                         intent.putExtra("Role",role)
                         intent.putExtra("proID",project_id)
                         intent.putExtra("buildID",building_id)
+                        val editor = sharedPreferences!!.edit()
+                        editor.putString(USERID, id)
+                        editor.putString(ROLE, role)
+                        editor.putString(PROID, project_id)
+                        editor.putString(BUILDID, building_id)
+                        editor.apply()
                         startActivity(intent)
                         finish()
                     }else if( role.equals("QA/QC Engr") || role.equals("Sr Engr")){
@@ -89,12 +122,24 @@ class Activity_Login : AppCompatActivity() {
                         intent.putExtra("Role",role)
                         intent.putExtra("proID",project_id)
                         intent.putExtra("buildID",building_id)
+                        val editor = sharedPreferences!!.edit()
+                        editor.putString(USERID, id)
+                        editor.putString(ROLE, role)
+                        editor.putString(PROID, project_id)
+                        editor.putString(BUILDID, building_id)
+                        editor.apply()
                         startActivity(intent)
                         finish()
                     }
                     else{
                         var intent=Intent(this,MainActivity::class.java)
                         intent.putExtra("userID",id)
+                        val editor = sharedPreferences!!.edit()
+                        editor.putString(USERID, id)
+                        editor.putString(ROLE, "OTHER")
+                        editor.putString(PROID, project_id)
+                        editor.putString(BUILDID, building_id)
+                        editor.apply()
                         startActivity(intent)
                         finish()
                     }
@@ -143,5 +188,14 @@ class Activity_Login : AppCompatActivity() {
         }
         stringRequest.retryPolicy = DefaultRetryPolicy(60000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         queue!!.add(stringRequest)
+    }
+
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
     }
 }

@@ -7,9 +7,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.*
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.widget.ArrayAdapter
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     var userID=""
 
     var addressss=""
-
+    private var myPreferences = "myPrefs"
 
     lateinit var locationManager: LocationManager
     private var hasGps = false
@@ -56,7 +59,19 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_form)
-        getAllProject()
+        if (isNetworkAvailable()){
+            getAllProject()
+        }else{
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Megapolis")
+            builder.setMessage("Please Check Internet Coonection")
+            builder.setPositiveButton("OK"){dialog, which ->
+                dialog.dismiss()
+            }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkPermission(permissions)) {
                 // enableView()
@@ -72,7 +87,15 @@ class MainActivity : AppCompatActivity() {
 
         //getBuilding("3")
         getCheckList()
-
+        imgLogOut.setOnClickListener {
+            val sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
+            val editor = sharedPreferences!!.edit()
+            editor.clear()
+            editor.commit()
+            val intent=Intent(this,Activity_Login::class.java)
+            startActivity(intent)
+            finish()
+        }
 
 
         spinnerChecklist.setOnClickListener {
@@ -490,5 +513,26 @@ class MainActivity : AppCompatActivity() {
         val knownName = addresses[0].getFeatureName() // Only if available else return NULL
         addressss=address
 
+    }
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+    }
+
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
     }
 }

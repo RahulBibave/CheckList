@@ -1,8 +1,12 @@
 package kumarworld.rahul.checklist
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
+import android.os.Handler
 import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
@@ -14,6 +18,11 @@ import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import kotlinx.android.synthetic.main.activity_admin_check.*
+import kotlinx.android.synthetic.main.activity_admin_check.btnNext
+import kotlinx.android.synthetic.main.activity_admin_check.spinnerBuildingNo
+import kotlinx.android.synthetic.main.activity_admin_check.spinnerChecklist
+import kotlinx.android.synthetic.main.activity_admin_check.spinnerProjectName
+import kotlinx.android.synthetic.main.activity_main_form.*
 import kumarworld.rahul.checklist.data.Question
 
 import org.json.JSONArray
@@ -37,11 +46,16 @@ class Activity_AdminMain :AppCompatActivity() {
     var chkID=""
     var proID=""
     var buildID=""
-    var userID=""
+    companion object{
+        var userID=""
+        var mRole=""
+    }
+
     var FlatName=""
     var BuildIDs=""
-   // var project_id=""
 
+   // var project_id=""
+   private var myPreferences = "myPrefs"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_check)
@@ -53,18 +67,53 @@ class Activity_AdminMain :AppCompatActivity() {
         for (i in 0 until parts.lastIndex+1){
             Log.e("ddddddddddddddd",""+parts[i])
         }
-*/
 
+*/
+        mRole=intent.getStringExtra("Role")
+        imgLogOutAdmin.setOnClickListener {
+            val sharedPreferences = getSharedPreferences(myPreferences, Context.MODE_PRIVATE)
+            val editor = sharedPreferences!!.edit()
+            editor.clear()
+            editor.commit()
+            val intent=Intent(this,Activity_Login::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         if (intent.getStringExtra("Role").equals("PM")){
-           getBuilding(proID)
+            if (isNetworkAvailable()){
+                getBuilding(proID)
+            }
+            else{
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Megapolis")
+                builder.setMessage("Please Check Internet Coonection")
+                builder.setPositiveButton("OK"){dialog, which ->
+                    dialog.dismiss()
+                }
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
+            }
+
            // pro_tital.visibility=View.GONE
             //spinnerProjectName.visibility=View.GONE
 
         }
 
-        getAllProject()
-        getCheckList()
+        if (isNetworkAvailable()){
+            getAllProject()
+            getCheckList()
+        }else{
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Megapolis")
+            builder.setMessage("Please Check Internet Coonection")
+            builder.setPositiveButton("OK"){dialog, which ->
+                dialog.dismiss()
+            }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
+
 
 
         spinnerChecklist.setOnClickListener {
@@ -410,5 +459,27 @@ class Activity_AdminMain :AppCompatActivity() {
         }
         stringRequest.retryPolicy = DefaultRetryPolicy(60000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT)
         queue!!.add(stringRequest)
+    }
+    private var doubleBackToExitPressedOnce = false
+    override fun onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+        Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show()
+
+        Handler().postDelayed(Runnable { doubleBackToExitPressedOnce = false }, 2000)
+    }
+
+
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE)
+        return if (connectivityManager is ConnectivityManager) {
+            val networkInfo: NetworkInfo? = connectivityManager.activeNetworkInfo
+            networkInfo?.isConnected ?: false
+        } else false
     }
 }
